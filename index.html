@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <title>repl.it</title>
+    <link href="style.css" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12/dist/vue.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  </head>
+  <body>
+    <div id="app">
+      {{ message }}
+      <ol>
+        <li v-for="movie in reviewed">
+          {{ movie.name }} 
+          <p>Patrick: {{ movie.patrick_rating}}</p>
+          <p>Austin: {{ movie.austin_rating }}</p>
+          <p><a v-bind:href="movie.imdb_link" target="_blank">IMDb</a></p>
+        </li>
+      </ol>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>
