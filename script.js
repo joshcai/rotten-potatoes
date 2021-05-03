@@ -1,7 +1,6 @@
 var app = new Vue({
   el: '#app',
   data: {
-    message: 'Wassawassup!',
     // Format:
     // {
     //   "name": 
@@ -22,15 +21,17 @@ var app = new Vue({
       ['Guest Name', 'guest_name'],
       ['Guest Rating', 'guest_rating'],
       ['IMDB Link', 'imdb_link'],
+      ['YouTube Link', 'youtube_link'],
+      ['Date', 'date'],
     ])
-    // map from custom field ID -> field name
+    // map from custom field ID -> JS property name
     const idMap = new Map();
     for (const field of customFields.data) {
       idMap.set(field.id, nameMap.get(field.name));
     }
 
     const reviewed = await axios.get('https://trello.com/1/lists/608f0a6bf8b3932f2f0c9a5c/cards?customFieldItems=true&fields=name');
-    for (const movie of reviewed.data) {
+    for (const movie of reviewed.data.reverse()) {
       const reviewed = {
         name: movie.name,
       }

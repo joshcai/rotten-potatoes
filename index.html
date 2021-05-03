@@ -4,21 +4,43 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width">
     <title>repl.it</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/water.css@2/out/dark.min.css">
     <link href="style.css" rel="stylesheet" type="text/css" />
     <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12/dist/vue.js"></script>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
   </head>
   <body>
     <div id="app">
-      {{ message }}
-      <ol>
-        <li v-for="movie in reviewed">
-          {{ movie.name }} 
-          <p>Patrick: {{ movie.patrick_rating}}</p>
-          <p>Austin: {{ movie.austin_rating }}</p>
-          <p><a v-bind:href="movie.imdb_link" target="_blank">IMDb</a></p>
-        </li>
-      </ol>
+      <h1 class="title"><span class="austin">YI</span><span class="both">P</span><span class="patrick">ATRICK</span></h1>
+      <h2 class="tagline">chill film discussions</h2>
+      <table style="width:100%">
+        <tr class="header-row">
+          <th>Movie</th>
+          <th>Austin's Rating</th>
+          <th>Patrick's Rating</th>
+          <th>Guest</th>
+          <th>Guest Rating</th>
+          <th>Links</th>
+          <th>Date</th>
+        </tr>
+        <tr v-for="movie in reviewed">
+          <td><a v-bind:href="movie.imdb_link" target="_blank">{{ movie.name }}</a></td>
+          <td>{{ movie.austin_rating }}</td>
+          <td>{{ movie.patrick_rating}}</td>
+          <td>{{ movie.guest_name}}</td>
+          <td>{{ movie.guest_rating}}</td>
+          <td>
+            <a v-bind:href="movie.youtube_link" target="_blank">YouTube</a>
+          </td>
+          <td>{{ movie.date }}</td>
+        </tr>
+      </table>
+    </div>
+    <div class="patrick-image">
+      <img class="patrick-img" src="images/patrick.png" draggable="false">
+    </div>
+    <div class="austin-image">
+      <img class="austin-img" src="images/austin.png" draggable="false">
     </div>
 
     <script src="script.js"></script>

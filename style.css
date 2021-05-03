@@ -1,0 +1,62 @@
+:root {
+  --glow-color: #e626bcfa;
+}
+
+.title {
+  text-align: center;
+  font-style: oblique -90deg;
+  font-size: 80px;
+  font-weight: bolder;
+  text-shadow: 0 -40px 100px, 0 0 2px, 0 0 1em var(--glow-color), 0 0 0.5em var(--glow-color), 0 0 0.1em var(--glow-color), 0 10px 3px #000;
+  color: #fee;
+  margin-bottom: 0px;
+  user-select: none;
+}
+
+.header-row {
+  background-color: rgb(1, 50, 156);
+}
+
+.tagline {
+  text-align: center;
+  margin-top: -15px;
+  margin-bottom: 30px;
+  padding-left: 180px;
+  color: rgb(131, 148, 165);
+}
+
+th {
+  font-weight: bolder;
+}
+
+.patrick-image {
+  position: fixed;
+  top: 0;
+  right: 0;
+  height: 100%;
+  width: 150;
+  z-index: -1;
+}
+
+.patrick-img {
+  height: 100%;
+  padding-top: 100px;
+  opacity: 0.2;
+  user-select: none;
+}
+
+.austin-image {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 150;
+  z-index: -1;
+}
+
+.austin-img {
+  height: 100%;
+  padding-top: 100px;
+  opacity: 0.2;
+  user-select: none;
+}
