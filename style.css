@@ -2,10 +2,12 @@
   --glow-color: #e626bcfa;
 }
 
+[v-cloak] {display: none}
+
 .title {
   text-align: center;
   font-style: oblique -90deg;
-  font-size: 80px;
+  font-size: 110px;
   font-weight: bolder;
   text-shadow: 0 -40px 100px, 0 0 2px, 0 0 1em var(--glow-color), 0 0 0.5em var(--glow-color), 0 0 0.1em var(--glow-color), 0 10px 3px #000;
   color: #fee;
@@ -13,20 +15,68 @@
   user-select: none;
 }
 
-.header-row {
-  background-color: rgb(1, 50, 156);
-}
-
 .tagline {
   text-align: center;
+  font-size: 30px;
   margin-top: -15px;
   margin-bottom: 30px;
-  padding-left: 180px;
-  color: rgb(131, 148, 165);
+  padding-left: 240px;
+  color: #c6e2ff;
+  animation: neon .08s ease-in-out infinite alternate;
 }
 
-th {
-  font-weight: bolder;
+a {
+  color: #0ff0fc;
+}
+
+a:hover {
+  color: #a5faff;
+  text-decoration: none;
+}
+
+.header-row {
+  background-color: #f9f9f9;
+  font-weight: bold;
+  color: rgb(70, 70, 70);
+  box-shadow: 0 0 3px 2px rgb(158, 158, 158, 0.8);
+  border-radius: 5px;
+}
+
+@keyframes neon {
+  from {
+    text-shadow:
+    0 0 6px rgba(202,228,225,0.92),
+    0 0 30px rgba(202,228,225,0.34),
+    0 0 12px rgba(30,132,242,0.52),
+    0 0 21px rgba(30,132,242,0.92),
+    0 0 34px rgba(30,132,242,0.78),
+    0 0 54px rgba(30,132,242,0.92);
+  }
+  to {
+    text-shadow:
+    0 0 6px rgba(202,228,225,0.98),
+    0 0 30px rgba(202,228,225,0.42),
+    0 0 12px rgba(30,132,242,0.58),
+    0 0 22px rgba(30,132,242,0.84),
+    0 0 38px rgba(30,132,242,0.88),
+    0 0 60px rgba(30,132,242,1);
+  }
+}
+
+
+tr {
+  background-color: #333;
+  opacity: 0.75;
+  text-align: center;
+}
+
+th, td {
+  text-align: center;
+  vertical-align: middle;
+}
+
+td {
+  color: #ffffff;
 }
 
 .patrick-image {
@@ -41,7 +91,7 @@ th {
 .patrick-img {
   height: 100%;
   padding-top: 100px;
-  opacity: 0.2;
+  opacity: 0.3;
   user-select: none;
 }
 
@@ -57,6 +107,79 @@ th {
 .austin-img {
   height: 100%;
   padding-top: 100px;
-  opacity: 0.2;
+  opacity: 0.3;
   user-select: none;
+}
+
+
+.next-week {
+  display: flex;
+  margin-bottom: 50px;
+  margin-top: 50px;
+}
+
+.next-image {
+  margin-left: 175px;
+  margin-right: 50px;
+}
+
+.twitch-logo {
+  width: 100px;
+  position: absolute;
+  right: -10px;
+  top:15px;
+}
+
+.youtube-logo {
+  width: 70px;
+  position: absolute;
+  right: 105px;
+  top:15px;
+}
+
+
+table {
+  border-collapse: separate;
+  border-spacing:0 4px;
+  border-radius: 10px;
+  -moz-border-radius: 10px;
+}
+tr:first-child th:first-child { 
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px; 
+}
+tr:first-child th:last-child { 
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+}
+
+tr:nth-child(2) td:first-child  { 
+  border-top-left-radius: 5px; 
+}
+tr:nth-child(2) td:last-child { 
+  border-top-right-radius: 5px;
+}
+
+tr:last-child td:first-child { border-bottom-left-radius: 5px; }
+tr:last-child td:last-child { border-bottom-right-radius: 5px; }
+
+.youtube-vod {
+  margin-top: 10px;
+  width: 45px;
+}
+
+.image-hover:hover {
+  opacity: 0.85;
+}
+
+.sortable {
+  cursor: pointer;
+}
+
+.faded {
+  opacity: 0.6;
+}
+
+.long-header {
+  width: 150px;
 }
