@@ -16,23 +16,22 @@
     <div id="app" v-cloak>
       <h1 class="title"><span class="austin">YI</span><span class="both">P</span><span class="patrick">ATRICK</span></h1>
       <h2 class="tagline">chill film discussions</h2>
-      <div class="next-week" v-if="to_review && to_review.length > 0">
+      <div class="next-week" v-if="next_up">
         <div class="next-image">
-          <a v-bind:href="to_review[0].imdb_link" target="_blank">
-            <img :src="to_review[0].image_link" class="image-hover"  />
-          </a>
+          <a v-bind:href="next_up.imdb_link" target="_blank" >
+            <img :src="posters[next_up.imdb_id]" class="image-hover" v-if="posters[next_up.imdb_id]" width="220" />
         </div>
         <div class="next-words">
           <h3>Up Next</h3>
           <h1>        
-            <a v-bind:href="to_review[0].imdb_link" target="_blank">
-            {{ to_review[0].name }}
+            <a v-bind:href="next_up.imdb_link" target="_blank">
+            {{ next_up.name }}
             </a>
           </h1>
-          <p v-if="to_review[0].guest_name">
-            with special guest <strong>{{ to_review[0].guest_name }}</strong>
+          <p v-if="next_up.guest_name">
+            with special guest <strong>{{ next_up.guest_name }}</strong>
           </p>
-          <h4>{{ to_review[0].date }}</h4>
+          <h4>{{ next_up.date }}</h4>
         </div>
       </div>
       <table style="width:100%">

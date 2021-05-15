@@ -37,16 +37,13 @@ var app = new Vue({
       controversial_film: [0, ''],
     },
   },
-  methods: {
-    // TODO figure out why this function isn't recognized
-    fetchPoster: async function(imdb_id) {
-      const tmdbUrl = 'https://api.themoviedb.org/3/find/' + imdb_id + '?api_key='+TMDB_API_KEY+'&language=en-US&external_source=imdb_id';
-      // TODO: don't stall main thread instead?
-      // ran into issue where Vue didn't update though.
-      const response = await axios.get(tmdbUrl)
-      const image_url = 'https://image.tmdb.org/t/p/w342' + response.data.movie_results[0].poster_path;
-      this.posters[imdb_id] = image_url;
-    },
+  computed: {
+    next_up: function () {
+      if (this.to_review.length === 0) {
+        return undefined;
+      }
+      return this.to_review[0];
+    }
   },
   async created() {
     const customFields = await axios.get('https://api.trello.com/1/boards/608f0a6477d83c36e3dda987/customFields');
@@ -62,34 +59,14 @@ var app = new Vue({
       ['Date', 'date'],
     ])
 
-
     // map from custom field ID -> JS property name
     const idMap = new Map();
     for (const field of customFields.data) {
       idMap.set(field.id, nameMap.get(field.name));
     }
-    const reviewed = await axios.get('https://trello.com/1/lists/608f0a6bf8b3932f2f0c9a5c/cards?customFieldItems=true&fields=name');
-    for (const movie of reviewed.data.reverse()) {
-      const data = {
-        name: movie.name,
-      }
-      for (const field of movie.customFieldItems) {
-        data[idMap.get(field.idCustomField)] = field.value.text;
-      }
-      const imdb_id = parseImdb(data.imdb_link);
-      data.imdb_id = imdb_id;
-      this.reviewed.push(data);
-      // await this.fetchPoster(imdb_id);
-      const tmdbUrl = 'https://api.themoviedb.org/3/find/' + imdb_id + '?api_key='+TMDB_API_KEY+'&language=en-US&external_source=imdb_id';
-      // TODO: don't stall main thread instead?
-      // ran into issue where Vue didn't update though.
-      const response = await axios.get(tmdbUrl)
-      const image_url = 'https://image.tmdb.org/t/p/w342' + response.data.movie_results[0].poster_path;
-      this.posters[imdb_id] = image_url;
-    }
 
-    this.reviewed_sorted = this.reviewed;
-
+    // Fetch to_review first since the images are at the top of the page
+    // and should be rendered first.
     const to_review = await axios.get('https://trello.com/1/lists/608f0a6ddd2bcd02ea6947a2/cards?customFieldItems=true&fields=name');
     for (const movie of to_review.data) {
       const data = {
@@ -101,15 +78,24 @@ var app = new Vue({
       const imdb_id = parseImdb(data.imdb_link);
       data.imdb_id = imdb_id;
       this.to_review.push(data);
-      // await this.fetchPoster(imdb_id);
-      const tmdbUrl = 'https://api.themoviedb.org/3/find/' + imdb_id + '?api_key='+TMDB_API_KEY+'&language=en-US&external_source=imdb_id';
-      // TODO: don't stall main thread instead?
-      // ran into issue where Vue didn't update though.
-      const response = await axios.get(tmdbUrl)
-      const image_url = 'https://image.tmdb.org/t/p/w342' + response.data.movie_results[0].poster_path;
-      this.posters[imdb_id] = image_url;
-      console.log(image_url);
+      this.fetchPoster(imdb_id);
     }
+
+    const reviewed = await axios.get('https://trello.com/1/lists/608f0a6bf8b3932f2f0c9a5c/cards?customFieldItems=true&fields=name');
+    for (const movie of reviewed.data.reverse()) {
+      const data = {
+        name: movie.name,
+      }
+      for (const field of movie.customFieldItems) {
+        data[idMap.get(field.idCustomField)] = field.value.text;
+      }
+      const imdb_id = parseImdb(data.imdb_link);
+      data.imdb_id = imdb_id;
+      this.reviewed.push(data);
+      this.fetchPoster(imdb_id);
+    }
+
+    this.reviewed_sorted = this.reviewed;
 
     // Stats
     let i = 0;
@@ -140,6 +126,18 @@ var app = new Vue({
     console.log(`Most controversial film: ${this.stats.controversial_film[1]} (△${this.stats.controversial_film[0]})`);
   },
   methods: {
+    fetchPoster: function(imdb_id) {
+      const tmdbUrl = 'https://api.themoviedb.org/3/find/' + imdb_id + '?api_key='+TMDB_API_KEY+'&language=en-US&external_source=imdb_id';
+
+      const response = axios.get(tmdbUrl)
+        .then((response) => {
+          const image_url = 'https://image.tmdb.org/t/p/w342' + response.data.movie_results[0].poster_path;
+          // Need to use this.$set to make sure Vue re-renders since this is done
+          // in a callback.
+          this.$set(this.posters, imdb_id, image_url);
+        });
+        
+    },
     sort: (sort_key) => {
       // sort_key, sort_dir state-setting
       if (sort_key == this.app._data.sort_key) {
