@@ -15,6 +15,168 @@
   user-select: none;
 }
 
+.austin {
+  animation: austin-flicker 10s linear infinite;
+  animation-delay: 2s;
+}
+
+.both {
+  animation: both-flicker 10s linear infinite;
+  animation-delay: 2s;
+}
+
+.patrick {
+  animation: patrick-flicker 10s linear infinite;
+  animation-delay: 2s;
+}
+
+@keyframes austin-flicker {
+  0% {
+    opacity:0.1;
+  }
+  1% {
+    opacity:1;
+  }
+  2% {
+    opacity:0.1;
+  }
+  4% {
+    opacity: 1;
+  }
+  6% {
+    opacity: 1;
+  }
+  7% {
+    opacity: 0.4;
+  }
+  8% {
+    opacity: 1;
+  }
+  10% {
+    opacity: 1;
+  }
+  11% {
+    opacity: 0.1;
+  }
+  18% {
+    opacity: 0.1;
+  }
+  19% {
+    opacity: 1;
+  }
+  20% {
+    opacity: 0.1;
+  }
+  21% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes both-flicker {
+  0% {
+    opacity:0.1;
+  }
+  1% {
+    opacity:1;
+  }
+  2% {
+    opacity:0.1;
+  }
+  4% {
+    opacity:1;
+  }
+  6% {
+    opacity: 1;
+  }
+  7% {
+    opacity: 0.5;
+  }
+  8% {
+    opacity: 1;
+  }
+  10% {
+    opacity: 1;
+  }
+  11% {
+    opacity: 0.1;
+  }
+  12% {
+    opacity: 1;
+  }
+  14% {
+    opacity: 1;
+  }
+  15% {
+    opacity: 0.4;
+  }
+  16% {
+    opacity: 1;
+  }
+  18% {
+    opacity: 1;
+  }
+  19% {
+    opacity: 1;
+  }
+  20% {
+    opacity: 0.1;
+  }
+  21% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes patrick-flicker {
+  0% {
+    opacity:0.1;
+  }
+  1% {
+    opacity:1;
+  }
+  2% {
+    opacity:0.1;
+  }
+  4% {
+    opacity: 0.1;
+  }
+  11% {
+    opacity: 0.1;
+  }
+  12% {
+    opacity: 1;
+  }
+  14% {
+    opacity: 1;
+  }
+  15% {
+    opacity: 0.4;
+  }
+  16% {
+    opacity: 1;
+  }
+  18% {
+    opacity: 1;
+  }
+  19% {
+    opacity: 1;
+  }
+  20% {
+    opacity: 0.1;
+  }
+  21% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
 .tagline {
   text-align: center;
   font-size: 30px;
@@ -63,7 +225,6 @@ a:hover {
   }
 }
 
-
 tr {
   background-color: #333;
   opacity: 0.75;
@@ -73,6 +234,12 @@ tr {
 th, td {
   text-align: center;
   vertical-align: middle;
+}
+
+th {
+  position: sticky;
+  top: 0;
+  z-index: 2;
 }
 
 td {
