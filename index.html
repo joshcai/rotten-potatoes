@@ -16,91 +16,95 @@
     <div id="app" v-cloak>
       <h1 class="title"><span class="austin">YI</span><span class="both">P</span><span class="patrick">ATRICK</span></h1>
       <h2 class="tagline">chill film discussions</h2>
-      <div class="next-week" v-if="next_up">
-        <div class="next-image">
-          <a v-bind:href="next_up.imdb_link" target="_blank" >
-            <img :src="posters[next_up.imdb_id]" class="image-hover" v-if="posters[next_up.imdb_id]" width="220" />
-        </div>
-        <div class="next-words">
-          <h3>Up Next</h3>
-          <h1>        
-            <a v-bind:href="next_up.imdb_link" target="_blank">
-            {{ next_up.name }}
-            </a>
-          </h1>
-          <p v-if="next_up.guest_name">
-            with special guest <strong>{{ next_up.guest_name }}</strong>
-          </p>
-          <h4>{{ next_up.date }}</h4>
-        </div>
-      </div>
-      <table style="width:100%">
-        <thead>
-          <tr class="header-row">
-            <th @click="sort('name')" class="sortable">
-              Movie
-              <span v-if="sort_key=='name'">
-                <span v-if="sort_dir=='asc'"> <i class="fas fa-sort-up"></i> </span>
-                <span v-if="sort_dir=='desc'"> <i class="fas fa-sort-down"></i> </span>
-              </span>
-              <span v-else>
-                <i class="fas fa-sort faded"></i>
-              </span>
-            </th>
-            <th @click="sort('austin_rating')" class="sortable long-header">
-              Austin's Rating
-              <span v-if="sort_key=='austin_rating'">
-                <span v-if="sort_dir=='asc'"> <i class="fas fa-sort-up"></i> </span>
-                <span v-if="sort_dir=='desc'"> <i class="fas fa-sort-down"></i> </span>
-              </span>
-              <span v-else>
-                <i class="fas fa-sort faded"></i>
-              </span>
-            </th>
-            <th @click="sort('patrick_rating')" class="sortable long-header">
-              Patrick's Rating
-              <span v-if="sort_key=='patrick_rating'">
-                <span v-if="sort_dir=='asc'"> <i class="fas fa-sort-up"></i> </span>
-                <span v-if="sort_dir=='desc'"> <i class="fas fa-sort-down"></i> </span>
-              </span>
-              <span v-else>
-                <i class="fas fa-sort faded"></i>
-              </span>
-            </th>
-            <th>Guest / Rating</th>
-            <th>Watch</th>
-            <th @click="sort('date')" class="sortable">
-              Date
-              <span v-if="sort_key=='date'">
-                <span v-if="sort_dir=='asc'"> <i class="fas fa-sort-up"></i> </span>
-                <span v-if="sort_dir=='desc'"> <i class="fas fa-sort-down"></i> </span>
-              </span>
-              <span v-else>
-                <i class="fas fa-sort faded"></i>
-              </span>
-            </th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr v-for="movie in reviewed_sorted">
-            <td>
-              <a v-bind:href="movie.imdb_link" target="_blank">
-                <img :src="posters[movie.imdb_id]" class="image-hover" v-if="posters[movie.imdb_id]" />
-                {{ movie.name }}
+      <transition name="next-up-transition">
+        <div class="next-week" v-if="next_up">
+          <div class="next-image">
+            <a v-bind:href="next_up.imdb_link" target="_blank" >
+              <img :src="posters[next_up.imdb_id]" class="image-hover" v-if="posters[next_up.imdb_id]" width="220" />
+          </div>
+          <div class="next-words">
+            <h3>Up Next</h3>
+            <h1>        
+              <a v-bind:href="next_up.imdb_link" target="_blank">
+              {{ next_up.name }}
               </a>
-            </td>
-            <td>{{ movie.austin_rating }}</td>
-            <td>{{ movie.patrick_rating}}</td>
-            <td>{{ movie.guest_name}} <span v-if="movie.guest_name && movie.guest_rating">/</span> {{ movie.guest_rating}}</td>
-            <td>
-              <a v-bind:href="movie.youtube_link" target="_blank" v-if="movie.youtube_link">
-                <img src="images/youtube.png"  class="youtube-vod image-hover" />
-              </a>
-            </td>
-            <td>{{ movie.date }}</td>
-          </tr>
-        </tbody>
-      </table>
+            </h1>
+            <p v-if="next_up.guest_name">
+              with special guest <strong>{{ next_up.guest_name }}</strong>
+            </p>
+            <h4>{{ next_up.date }}</h4>
+          </div>
+        </div>
+      </transition>
+      <transition name="table-transition">
+        <table style="width:100%">
+          <thead>
+            <tr class="header-row">
+              <th @click="sort('name')" class="sortable">
+                Movie
+                <span v-if="sort_key=='name'">
+                  <span v-if="sort_dir=='asc'"> <i class="fas fa-sort-up"></i> </span>
+                  <span v-if="sort_dir=='desc'"> <i class="fas fa-sort-down"></i> </span>
+                </span>
+                <span v-else>
+                  <i class="fas fa-sort faded"></i>
+                </span>
+              </th>
+              <th @click="sort('austin_rating')" class="sortable long-header">
+                Austin's Rating
+                <span v-if="sort_key=='austin_rating'">
+                  <span v-if="sort_dir=='asc'"> <i class="fas fa-sort-up"></i> </span>
+                  <span v-if="sort_dir=='desc'"> <i class="fas fa-sort-down"></i> </span>
+                </span>
+                <span v-else>
+                  <i class="fas fa-sort faded"></i>
+                </span>
+              </th>
+              <th @click="sort('patrick_rating')" class="sortable long-header">
+                Patrick's Rating
+                <span v-if="sort_key=='patrick_rating'">
+                  <span v-if="sort_dir=='asc'"> <i class="fas fa-sort-up"></i> </span>
+                  <span v-if="sort_dir=='desc'"> <i class="fas fa-sort-down"></i> </span>
+                </span>
+                <span v-else>
+                  <i class="fas fa-sort faded"></i>
+                </span>
+              </th>
+              <th>Guest / Rating</th>
+              <th>Watch</th>
+              <th @click="sort('date')" class="sortable">
+                Date
+                <span v-if="sort_key=='date'">
+                  <span v-if="sort_dir=='asc'"> <i class="fas fa-sort-up"></i> </span>
+                  <span v-if="sort_dir=='desc'"> <i class="fas fa-sort-down"></i> </span>
+                </span>
+                <span v-else>
+                  <i class="fas fa-sort faded"></i>
+                </span>
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="movie in reviewed_sorted">
+              <td>
+                <a v-bind:href="movie.imdb_link" target="_blank">
+                  <img :src="posters[movie.imdb_id]" class="image-hover" v-if="posters[movie.imdb_id]" />
+                  {{ movie.name }}
+                </a>
+              </td>
+              <td>{{ movie.austin_rating }}</td>
+              <td>{{ movie.patrick_rating}}</td>
+              <td>{{ movie.guest_name}} <span v-if="movie.guest_name && movie.guest_rating">/</span> {{ movie.guest_rating}}</td>
+              <td>
+                <a v-bind:href="movie.youtube_link" target="_blank" v-if="movie.youtube_link">
+                  <img src="images/youtube.png"  class="youtube-vod image-hover" />
+                </a>
+              </td>
+              <td>{{ movie.date }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </transition>
     </div>
     <div class="patrick-image">
       <img class="patrick-img" src="images/patrick.png" draggable="false">
