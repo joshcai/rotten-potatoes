@@ -1,5 +1,5 @@
 # RottenPotatoes
-website for chill film discussions by YiPatrick
+Website for Chill Film Discussions by Yipatrick
 
 Code developed on replit.com
 
