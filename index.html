@@ -11,11 +11,11 @@
     <script src="https://kit.fontawesome.com/9ed503a3d8.js" crossorigin="anonymous"></script>
   </head>
   <body>
-    <a href="https://www.twitch.tv/yupatrick" target="_blank"><img src="images/twitch.png" class="twitch-logo image-hover" /></a>
-      <a href="https://www.youtube.com/channel/UC9VTIJswdNREb_qzcZhpCoA" target="_blank"><img src="images/youtube.png" class="youtube-logo image-hover" /></a>
     <div id="app" v-cloak>
       <h1 class="title"><span class="austin">YI</span><span class="both">P</span><span class="patrick">ATRICK</span></h1>
       <h2 class="tagline">chill film discussions</h2>
+      <a href="https://www.twitch.tv/yupatrick" target="_blank"><img src="images/twitch.png" class="twitch-logo image-hover" /></a>
+      <a href="https://www.youtube.com/channel/UC9VTIJswdNREb_qzcZhpCoA" target="_blank"><img src="images/youtube.png" class="youtube-logo image-hover" /></a>
       <transition name="next-up-transition">
         <div class="next-week" v-if="next_up">
           <div class="next-image">
@@ -24,7 +24,7 @@
           </div>
           <div class="next-words">
             <h3>Up Next</h3>
-            <h1>        
+            <h1 class="next-movie-title">        
               <a v-bind:href="next_up.imdb_link" target="_blank">
               {{ next_up.name }}
               </a>
