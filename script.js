@@ -131,7 +131,21 @@ var app = new Vue({
 
       const response = axios.get(tmdbUrl)
         .then((response) => {
-          const image_url = 'https://image.tmdb.org/t/p/w342' + response.data.movie_results[0].poster_path;
+          let poster_path = '';
+          if (response.data.movie_results.length > 0) {
+            poster_path = response.data.movie_results[0].poster_path;
+          } else if (response.data.tv_results.length > 0) {
+            poster_path = response.data.tv_results[0].poster_path;
+          } else if (response.data.tv_episode_results.length > 0) {
+            poster_path = response.data.tv_episode_results[0].poster_path;
+          } else if (response.data.tv_season_results.length > 0) {
+            poster_path = response.data.tv_season_results[0].poster_path;
+          }
+          // Couldn't find a poster path.
+          if (poster_path === '') {
+            return;
+          }
+          const image_url = 'https://image.tmdb.org/t/p/w342' + poster_path;
           // Need to use this.$set to make sure Vue re-renders since this is done
           // in a callback.
           this.$set(this.posters, imdb_id, image_url);
