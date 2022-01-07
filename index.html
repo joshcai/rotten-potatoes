@@ -51,7 +51,7 @@
                 </span>
               </th>
               <th @click="sort('austin_rating')" class="sortable long-header">
-                Austin's Rating
+                Austin
                 <span v-if="sort_key=='austin_rating'">
                   <span v-if="sort_dir=='asc'"> <i class="fas fa-sort-up"></i> </span>
                   <span v-if="sort_dir=='desc'"> <i class="fas fa-sort-down"></i> </span>
@@ -61,7 +61,7 @@
                 </span>
               </th>
               <th @click="sort('patrick_rating')" class="sortable long-header">
-                Patrick's Rating
+                Patrick
                 <span v-if="sort_key=='patrick_rating'">
                   <span v-if="sort_dir=='asc'"> <i class="fas fa-sort-up"></i> </span>
                   <span v-if="sort_dir=='desc'"> <i class="fas fa-sort-down"></i> </span>
@@ -70,7 +70,7 @@
                   <i class="fas fa-sort faded"></i>
                 </span>
               </th>
-              <th>Guest / Rating</th>
+              <th>Guest</th>
               <th>Watch</th>
               <th @click="sort('date')" class="sortable">
                 Date
