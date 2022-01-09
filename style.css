@@ -27,10 +27,18 @@
   width: 70px;
 }
 
-
 th, td {
   text-align: center;
   vertical-align: middle;
+}
+
+a {
+  color: #0ff0fc;
+}
+
+a:hover {
+  color: #a5faff;
+  text-decoration: none;
 }
 
 @media only screen and (max-width: 599px) {
@@ -256,15 +264,6 @@ th, td {
     padding-left: 240px;
     color: #c6e2ff;
     animation: neon .08s ease-in-out infinite alternate;
-  }
-
-  a {
-    color: #0ff0fc;
-  }
-
-  a:hover {
-    color: #a5faff;
-    text-decoration: none;
   }
 
   .header-row {
