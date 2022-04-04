@@ -41,6 +41,10 @@ a:hover {
   text-decoration: none;
 }
 
+.tmdb-attribution {
+  text-align: center;
+}
+
 @media only screen and (max-width: 599px) {
   #app {
     text-align: center;
