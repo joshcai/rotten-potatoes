@@ -82,7 +82,7 @@ var app = new Vue({
     }
 
     const reviewed = await axios.get('https://trello.com/1/lists/608f0a6bf8b3932f2f0c9a5c/cards?customFieldItems=true&fields=name');
-    for (const movie of reviewed.data.reverse()) {
+    for (const movie of reviewed.data) {
       const data = {
         name: movie.name,
       }
