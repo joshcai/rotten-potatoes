@@ -1,119 +1,122 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width">
-    <title>YiPatrick - chill film discussions</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/water.css@2/out/dark.min.css">
-    <link href="style.css" rel="stylesheet" type="text/css" />
-    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12/dist/vue.js"></script>
-    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-    <script src="https://kit.fontawesome.com/9ed503a3d8.js" crossorigin="anonymous"></script>
-  </head>
-  <body>
-    <div id="app" v-cloak>
-      <h1 class="title"><span class="austin">YI</span><span class="both">P</span><span class="patrick">ATRICK</span></h1>
-      <h2 class="tagline">chill film discussions</h2>
-      <a href="https://www.twitch.tv/yupatrick" target="_blank"><img src="images/twitch.png" class="twitch-logo image-hover" /></a>
-      <a href="https://www.youtube.com/channel/UC9VTIJswdNREb_qzcZhpCoA" target="_blank"><img src="images/youtube.png" class="youtube-logo image-hover" /></a>
-      <transition name="next-up-transition">
-        <div class="next-week" v-if="next_up">
-          <div class="next-image">
-            <a v-bind:href="next_up.imdb_link" target="_blank" >
-              <img :src="posters[next_up.imdb_id]" class="image-hover" v-if="posters[next_up.imdb_id]" width="220" />
-          </div>
-          <div class="next-words">
-            <h3>Up Next</h3>
-            <h1 class="next-movie-title">        
-              <a v-bind:href="next_up.imdb_link" target="_blank">
-              {{ next_up.name }}
-              </a>
-            </h1>
-            <p v-if="next_up.guest_name">
-              with special guest <strong>{{ next_up.guest_name }}</strong>
-            </p>
-            <h4>{{ next_up.date }}</h4>
-          </div>
-        </div>
-      </transition>
-      <transition name="table-transition">
-        <table style="width:100%">
-          <thead>
-            <tr class="header-row">
-              <th @click="sort('name')" class="sortable">
-                Movie
-                <span v-if="sort_key=='name'">
-                  <span v-if="sort_dir=='asc'"> <i class="fas fa-sort-up"></i> </span>
-                  <span v-if="sort_dir=='desc'"> <i class="fas fa-sort-down"></i> </span>
-                </span>
-                <span v-else>
-                  <i class="fas fa-sort faded"></i>
-                </span>
-              </th>
-              <th @click="sort('austin_rating')" class="sortable long-header">
-                Austin
-                <span v-if="sort_key=='austin_rating'">
-                  <span v-if="sort_dir=='asc'"> <i class="fas fa-sort-up"></i> </span>
-                  <span v-if="sort_dir=='desc'"> <i class="fas fa-sort-down"></i> </span>
-                </span>
-                <span v-else>
-                  <i class="fas fa-sort faded"></i>
-                </span>
-              </th>
-              <th @click="sort('patrick_rating')" class="sortable long-header">
-                Patrick
-                <span v-if="sort_key=='patrick_rating'">
-                  <span v-if="sort_dir=='asc'"> <i class="fas fa-sort-up"></i> </span>
-                  <span v-if="sort_dir=='desc'"> <i class="fas fa-sort-down"></i> </span>
-                </span>
-                <span v-else>
-                  <i class="fas fa-sort faded"></i>
-                </span>
-              </th>
-              <th>Guest</th>
-              <th>Watch</th>
-              <th @click="sort('date')" class="sortable">
-                Date
-                <span v-if="sort_key=='date'">
-                  <span v-if="sort_dir=='asc'"> <i class="fas fa-sort-up"></i> </span>
-                  <span v-if="sort_dir=='desc'"> <i class="fas fa-sort-down"></i> </span>
-                </span>
-                <span v-else>
-                  <i class="fas fa-sort faded"></i>
-                </span>
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr v-for="movie in reviewed_sorted">
-              <td>
-                <a v-bind:href="movie.imdb_link" target="_blank">
-                  <img :src="posters[movie.imdb_id]" class="image-hover" v-if="posters[movie.imdb_id]" />
-                  {{ movie.name }}
-                </a>
-              </td>
-              <td>{{ movie.austin_rating }}</td>
-              <td>{{ movie.patrick_rating}}</td>
-              <td>{{ movie.guest_name}} <span v-if="movie.guest_name && movie.guest_rating">/</span> {{ movie.guest_rating}}</td>
-              <td>
-                <a v-bind:href="movie.youtube_link" target="_blank" v-if="movie.youtube_link">
-                  <img src="images/youtube.png"  class="youtube-vod image-hover" />
-                </a>
-              </td>
-              <td>{{ movie.date }}</td>
-            </tr>
-          </tbody>
-        </table>
-      </transition>
-      <div class="tmdb-attribution">Posters provided by <a href="https://www.themoviedb.org/" target="_blank">TMDB</a></div>
-    </div>
-    <div class="patrick-image">
-      <img class="patrick-img" src="images/patrick.png" draggable="false">
-    </div>
-    <div class="austin-image">
-      <img class="austin-img" src="images/austin.png" draggable="false">
-    </div>
 
-    <script src="script.js"></script>
-  </body>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>YiPatrick - chill film discussions</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/water.css@2/out/dark.min.css">
+  <link href="style.css" rel="stylesheet" type="text/css" />
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12/dist/vue.js"></script>
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  <script src="https://kit.fontawesome.com/9ed503a3d8.js" crossorigin="anonymous"></script>
+</head>
+
+<body>
+  <div id="app" v-cloak>
+    <h1 class="title"><span class="austin">YI</span><span class="both">P</span><span class="patrick">ATRICK</span></h1>
+    <h2 class="tagline">chill film discussions</h2>
+    <a href="https://open.spotify.com/show/6qEgjQCvVbXDl6v1sGtUGJ" target="_blank"><img src="images/spotify.png"
+        class="spotify-logo image-hover" /></a>
+    <a href="https://www.twitch.tv/yupatrick" target="_blank"><img src="images/twitch.png"
+        class="twitch-logo image-hover" /></a>
+    <a href="https://www.youtube.com/channel/UC9VTIJswdNREb_qzcZhpCoA" target="_blank"><img src="images/youtube.png"
+        class="youtube-logo image-hover" /></a>
+    <transition name="next-up-transition">
+      <div class="next-week" v-if="next_up">
+        <div class="next-image">
+          <a v-bind:href="next_up.imdb_link" target="_blank">
+            <img :src="posters[next_up.imdb_id]" class="image-hover" v-if="posters[next_up.imdb_id]" width="220" />
+        </div>
+        <div class="next-words">
+          <h3>Up Next</h3>
+          <h1 class="next-movie-title">
+            <a v-bind:href="next_up.imdb_link" target="_blank">
+              {{ next_up.name }}
+            </a>
+          </h1>
+          <p v-if="next_up.guest_name">
+            with special guest <strong>{{ next_up.guest_name }}</strong>
+          </p>
+          <h4>{{ next_up.date }}</h4>
+        </div>
+      </div>
+    </transition>
+    <transition name="table-transition">
+      <table style="width:100%">
+        <thead>
+          <tr class="header-row">
+            <th @click="sort('name')" class="sortable">
+              Movie
+              <span v-if="sort_key=='name'">
+                <span v-if="sort_dir=='asc'"> <i class="fas fa-sort-up"></i> </span>
+                <span v-if="sort_dir=='desc'"> <i class="fas fa-sort-down"></i> </span>
+              </span>
+              <span v-else>
+                <i class="fas fa-sort faded"></i>
+              </span>
+            </th>
+            <th @click="sort('austin_rating')" class="sortable long-header">
+              Austin
+              <span v-if="sort_key=='austin_rating'">
+                <span v-if="sort_dir=='asc'"> <i class="fas fa-sort-up"></i> </span>
+                <span v-if="sort_dir=='desc'"> <i class="fas fa-sort-down"></i> </span>
+              </span>
+              <span v-else>
+                <i class="fas fa-sort faded"></i>
+              </span>
+            </th>
+            <th @click="sort('patrick_rating')" class="sortable long-header">
+              Patrick
+              <span v-if="sort_key=='patrick_rating'">
+                <span v-if="sort_dir=='asc'"> <i class="fas fa-sort-up"></i> </span>
+                <span v-if="sort_dir=='desc'"> <i class="fas fa-sort-down"></i> </span>
+              </span>
+              <span v-else>
+                <i class="fas fa-sort faded"></i>
+              </span>
+            </th>
+            <th>Guest</th>
+            <th>Watch</th>
+            <th @click="sort('date')" class="sortable">
+              Date
+              <span v-if="sort_key=='date'">
+                <span v-if="sort_dir=='asc'"> <i class="fas fa-sort-up"></i> </span>
+                <span v-if="sort_dir=='desc'"> <i class="fas fa-sort-down"></i> </span>
+              </span>
+              <span v-else>
+                <i class="fas fa-sort faded"></i>
+              </span>
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="movie in reviewed_sorted">
+            <td>
+              <a v-bind:href="movie.imdb_link" target="_blank">
+                <img :src="posters[movie.imdb_id]" class="image-hover" v-if="posters[movie.imdb_id]" />
+                {{ movie.name }}
+              </a>
+            </td>
+            <td>{{ movie.austin_rating }}</td>
+            <td>{{ movie.patrick_rating}}</td>
+            <td>{{ movie.guest_name}} <span v-if="movie.guest_name && movie.guest_rating">/</span> {{
+              movie.guest_rating}}</td>
+            <td>
+              <a v-bind:href="movie.youtube_link" target="_blank" v-if="movie.youtube_link">
+                <img src="images/youtube.png" class="youtube-vod image-hover" />
+              </a>
+            </td>
+            <td>{{ movie.date }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </transition>
+    <div class="tmdb-attribution">Posters provided by <a href="https://www.themoviedb.org/" target="_blank">TMDB</a>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+
 </html>

@@ -19,14 +19,6 @@
   color: #c6e2ff;
 }
 
-.twitch-logo {
-  width: 100px;
-}
-
-.youtube-logo {
-  width: 70px;
-}
-
 th, td {
   text-align: center;
   vertical-align: middle;
@@ -386,6 +378,13 @@ a:hover {
     position: absolute;
     right: 105px;
     top:15px;
+  }
+  
+  .spotify-logo {
+    width: 75px;
+    position: absolute;
+    right: 175px;
+    top:10px;
   }
 
 
