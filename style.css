@@ -37,6 +37,19 @@ a:hover {
   text-align: center;
 }
 
+/* Classes needed for mobile view. */
+.twitch-logo {
+  width: 100px;
+}
+
+.youtube-logo {
+  width: 70px;
+}
+
+.spotify-logo {
+  width: 75px;
+}
+
 @media only screen and (max-width: 599px) {
   #app {
     text-align: center;
